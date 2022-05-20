@@ -85,6 +85,7 @@ for k in range(m):
         num = int(dataList[j].lstrip())
         
 
+
 # Costos -> costMatriz
 # Cobertura -> totalMatrix
 
@@ -124,15 +125,25 @@ for i in range(m):
 #print(listaCobertura[91])
 
 
+tupleList = gp.tupledict({})
 tupleDict = gp.tupledict({})
 
 for i in range(n):
+    tupleList[i] = gp.tuplelist([(listaCobertura[i+1]), int(costMatrix[i])])
 
-    tupleDict[i] = gp.tuplelist([(listaCobertura[i+1]), int(costMatrix[i])])
 
-print(tupleDict[0])
+# for i in range(n):
+#     tupleDict[i] = gp.tupledict({i: tupleList[i]})
 
-#city, coverage, cost = gp.multidict({})
+#print(tupleDict.select())
+
+#print(tupleFinal.select('*'))
+#print(tupleFinal.select())
+
+print(tupleList[0][0])
+
+
+
 
 
 
