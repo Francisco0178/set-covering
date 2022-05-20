@@ -5,8 +5,7 @@
 import gurobipy as gp
 from gurobipy import GRB
 
-
-city, coverage, cost = gp.multidict({
+tupleDict = gp.tupledict({
     0: [{0,1}, 4.2],
     1: [{0,1,5}, 6.1],
     2: [{2,3}, 5.2],
@@ -14,6 +13,11 @@ city, coverage, cost = gp.multidict({
     4: [{3,4,5}, 4.8],
     5: [{1,4,5}, 9.2]
 })
+
+city, coverage, cost = gp.multidict(
+    tupleDict
+)
+
 
 # MIP model Formulation
 m = gp.Model("set_covering1")

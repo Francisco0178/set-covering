@@ -124,54 +124,25 @@ for i in range(m):
 #print(listaCobertura[91])
 
 
+tupleDict = gp.tupledict({})
+
 for i in range(n):
-    city, coverage, cost = gp.multidict({
-        i: [listaCobertura[i], costMatrix[i]]
-    })
+
+    tupleDict[i] = gp.tuplelist([(listaCobertura[i+1]), int(costMatrix[i])])
+
+print(tupleDict[0])
+
+#city, coverage, cost = gp.multidict({})
 
 
 
+
+
+
+'''
 for i in range(n):
     print("La ciudad: ",i+1," esta cubierta por las estaciones:", listaCobertura[i+1])
-
-
-
-
-
-
-
-
-
-
-
-
-
 '''
-for j in range(largo):
-        city, coverage, cost = gp.multidict({
-            i: [{totalMatrix[i][j]}, costMatrix[i]],
-        })
-        print(i,": [",coverage,", ",costMatrix[0],"]")
-'''    
 
-    
-
-
-
-
-
-
-
-
-
-
-'''
-for i in range(n):                              # por cada ciudad
-    for j in range(len(totalMatrix[i])):        # obtiene sus coberturas
-
-        ciudad, cobertura, costo = gp.multidict({
-            i: [{ coberturaTotal }, costMatrix[i]]
-        })
-'''
 
 
