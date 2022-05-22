@@ -1,47 +1,34 @@
+from instanceReader_v3 import *
 
-from set_covering_tarea2_v2 import *
-
-import gurobipy as gp
-from gurobipy import GRB
-
-tupleDict = gp.tupledict({
-    0: [[0,1], 4.2],
-    1: [[0,1,5], 6.1],
-    2: [[2,3], 5.2],
-    3: [[2,3,4], 5.5],
-    4: [[3,4,5], 4.8],
-    5: [[1,4,5], 9.2]
-})
-
-city, coverage, cost = gp.multidict(
+personas, coverage, cost = gp.multidict(
     tupleList
 )
-
 
 # MIP model Formulation
 m = gp.Model("set_covering1")
 
-# build es una variable binaria que me dirá en qué ciudad construir o no.
-build = m.addVars(len(city), vtype = GRB.BINARY, name="build")
-#is_covered = m.addVars(len(city)), vtype = GRB.BINARY, name="Is_covered"
+# elige es una variable binaria que me dirá qué equipo elegir.
+elige = m.addVars(len(personas), vtype = GRB.BINARY, name="elige")
+#is_covered = m.addVars(len(personas)), vtype = GRB.BINARY, name="Is_covered"
 
-m.addConstrs((gp.quicksum(build[r] for r in city if r in coverage[t]) >= 1 for t in city), name="Build2Cover")
-#m.addConstr(build.prod(cost) <= budget, name="budget")
+m.addConstrs((gp.quicksum(elige[r] for r in personas if r in coverage[t]) >= 1 for t in personas), name="elige2Cover")
+#m.addConstr(elige.prod(cost) <= budget, name="budget")
 
-m.setObjective(gp.quicksum(build[t] for t in city), GRB.MINIMIZE)
+m.setObjective(gp.quicksum(elige[t]*cost[t] for t in personas), GRB.MINIMIZE)
 
-m.setParam('TimeLimit', 30)
-
+m.setParam('TimeLimit', 5*60)
 m.update()
 m.write("set_covering1.lp")
-
 m.optimize()
 
-
 # display optimal values of decision variables
-for ct in build.keys():
-    if(abs(build[ct].x) > 1e-6):
-        print(f"\n Elegir el equipo: {ct+1}.")
+count = 0
+print("\n")
+'''
+for ct in elige.keys():
+    if(abs(elige[ct].x) > 1e-6):
+        print(f"Elegir el equipo: {ct+1}.")
+        count = count + 1
 
-
-
+print("\n De los",n,"equipos, solo hay que escoger los",count,"anteriores\n")
+'''
